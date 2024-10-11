@@ -28,6 +28,10 @@ namespace _01Assignment2
 
         private void btnGenerateGrid_Click(object sender, EventArgs e)
         {
+            //Creating the grid with the selected size
+            gameGrid = new PictureBox[_numRows, _numCols];
+
+
             for (int i = 0; i < _numRows; i++)
             {
                 for (int j = 0; j < _numCols; j++)
@@ -35,9 +39,10 @@ namespace _01Assignment2
                     PictureBox pbCell = new PictureBox();
                     pbCell.Width = _pbCellSize;
                     pbCell.Height = _pbCellSize;
+                    pbCell.BackColor = Color.White;
 
                     //How to calc the location to replace i and j?. We need a logic to place the pbCell to the right location
-                    pbCell.Location = new Point(i, j);
+                    pbCell.Location = new Point(320, 140);
 
                     //Add the pbCell to the Form
                     Controls.Add(pbCell);

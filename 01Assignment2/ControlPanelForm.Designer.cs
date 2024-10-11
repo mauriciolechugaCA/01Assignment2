@@ -52,6 +52,7 @@
             this.btnDesign.TabIndex = 1;
             this.btnDesign.Text = "Design";
             this.btnDesign.UseVisualStyleBackColor = true;
+            this.btnDesign.Click += new System.EventHandler(this.btnDesign_Click);
             // 
             // btnExit
             // 

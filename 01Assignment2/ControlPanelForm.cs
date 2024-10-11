@@ -16,5 +16,14 @@ namespace _01Assignment2
         {
             InitializeComponent();
         }
+
+        private void btnDesign_Click(object sender, EventArgs e)
+        {
+            //Calling the DesignerForm
+            //https://www.youtube.com/watch?v=7Vhl6GDNU7k&list=PLx4x_zx8csUglgKTmgfVFEhWWBQCasNGi&index=64
+            DesignerForm form = new DesignerForm();
+            form.ShowDialog();
+
+        }
     }
 }
