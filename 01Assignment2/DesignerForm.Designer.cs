@@ -242,6 +242,7 @@
             this.pictureBoxBoxBlue.Size = new System.Drawing.Size(65, 65);
             this.pictureBoxBoxBlue.TabIndex = 5;
             this.pictureBoxBoxBlue.TabStop = false;
+            this.pictureBoxBoxBlue.Click += new System.EventHandler(this.pictureBoxWall_Click);
             // 
             // pictureBoxBoxRed
             // 
@@ -253,6 +254,7 @@
             this.pictureBoxBoxRed.Size = new System.Drawing.Size(65, 65);
             this.pictureBoxBoxRed.TabIndex = 4;
             this.pictureBoxBoxRed.TabStop = false;
+            this.pictureBoxBoxRed.Click += new System.EventHandler(this.pictureBoxWall_Click);
             // 
             // pictureBoxDoorBlue
             // 
@@ -264,6 +266,7 @@
             this.pictureBoxDoorBlue.Size = new System.Drawing.Size(65, 65);
             this.pictureBoxDoorBlue.TabIndex = 3;
             this.pictureBoxDoorBlue.TabStop = false;
+            this.pictureBoxDoorBlue.Click += new System.EventHandler(this.pictureBoxWall_Click);
             // 
             // pictureBoxDoorRed
             // 
@@ -275,7 +278,8 @@
             this.pictureBoxDoorRed.Size = new System.Drawing.Size(65, 65);
             this.pictureBoxDoorRed.TabIndex = 2;
             this.pictureBoxDoorRed.TabStop = false;
-            this.pictureBoxDoorRed.Tag = "RD";
+            this.pictureBoxDoorRed.Tag = "";
+            this.pictureBoxDoorRed.Click += new System.EventHandler(this.pictureBoxWall_Click);
             // 
             // pictureBoxWall
             // 
@@ -287,7 +291,8 @@
             this.pictureBoxWall.Size = new System.Drawing.Size(65, 65);
             this.pictureBoxWall.TabIndex = 1;
             this.pictureBoxWall.TabStop = false;
-            this.pictureBoxWall.Tag = "W";
+            this.pictureBoxWall.Tag = "";
+            this.pictureBoxWall.Click += new System.EventHandler(this.pictureBoxWall_Click);
             // 
             // pictureBoxNone
             // 
@@ -299,7 +304,8 @@
             this.pictureBoxNone.Size = new System.Drawing.Size(65, 65);
             this.pictureBoxNone.TabIndex = 0;
             this.pictureBoxNone.TabStop = false;
-            this.pictureBoxNone.Tag = "DEL";
+            this.pictureBoxNone.Tag = "";
+            this.pictureBoxNone.Click += new System.EventHandler(this.pictureBoxWall_Click);
             // 
             // DesignerForm
             // 
