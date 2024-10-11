@@ -51,7 +51,6 @@
             this.pictureBoxDoorRed = new System.Windows.Forms.PictureBox();
             this.pictureBoxWall = new System.Windows.Forms.PictureBox();
             this.pictureBoxNone = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
             this.groupBoxGridGenerator.SuspendLayout();
             this.groupBoxToolbox.SuspendLayout();
@@ -61,7 +60,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDoorRed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWall)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNone)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -303,20 +301,11 @@
             this.pictureBoxNone.TabStop = false;
             this.pictureBoxNone.Tag = "DEL";
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(320, 150);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(65, 65);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            // 
             // DesignerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(851, 600);
-            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.groupBoxToolbox);
             this.Controls.Add(this.groupBoxGridGenerator);
             this.Controls.Add(this.menuStrip1);
@@ -335,7 +324,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxDoorRed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxWall)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxNone)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -366,6 +354,5 @@
         private System.Windows.Forms.Label lblNone;
         private System.Windows.Forms.Label lblBoxBlue;
         private System.Windows.Forms.Label lblBoxRed;
-        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
