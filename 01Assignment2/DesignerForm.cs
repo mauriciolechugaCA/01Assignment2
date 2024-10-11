@@ -46,8 +46,8 @@ namespace _01Assignment2
             //Input is an integer?
             //Input is an valid number? (> 0)
 
-            //Clean the grid if exists
 
+            //Clean the grid if exists
 
 
             //Getting the input
@@ -127,7 +127,9 @@ namespace _01Assignment2
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            CountElements();
+            DisplaySuccessMessage();
+            this.Close();
         }
 
         private void CountElements()
@@ -170,6 +172,16 @@ namespace _01Assignment2
             }
 
             Console.WriteLine($"Boxes: {_countBoxes} | Doors: {_countDoors} | Walls: {_countWalls}");
+        }
+
+        private void DisplaySuccessMessage()
+        {
+            string msg = $"File saved successfully!\n" +
+                         $"Total Number o walls: {_countWalls}\n" +
+                         $"Total Number o doors: {_countDoors}\n" +
+                         $"Total Number o boxes: {_countBoxes}\n";
+
+            MessageBox.Show(msg);
         }
 
     }

@@ -25,5 +25,10 @@ namespace _01Assignment2
             form.ShowDialog();
 
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }
