@@ -19,6 +19,10 @@ namespace _01Assignment2
         private const int _pbCellStartRow = 320;
         private const int _pbCellStartCol = 140;
         private Image _selectedElement = null;
+        private int _countWalls;
+        private int _countBoxes;
+        private int _countDoors;
+
 
         // Matriz de PictureBoxes que representará a grade
         private PictureBox[,] gameGrid;
@@ -85,7 +89,6 @@ namespace _01Assignment2
         private void pictureBoxWall_Click(object sender, EventArgs e)
         {
             //Copying the TicTacToe
-
             PictureBox clickedElement = (PictureBox)sender;
 
             switch(clickedElement.Name)
@@ -118,6 +121,56 @@ namespace _01Assignment2
             PictureBox clickedCell = (PictureBox)sender;
 
             clickedCell.BackgroundImage = _selectedElement;
+
+            CountElements();
         }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CountElements()
+        {
+            _countBoxes = 0;
+            _countDoors = 0;
+            _countWalls = 0;
+
+            foreach (var item in gameGrid)
+            {
+                if (item.BackgroundImage != null)
+                {
+                    //switch(item.BackgroundImage.ToString())
+                    //{
+                    //    case "wall":
+                    //        _countWalls++;
+                    //        break;
+                    //    case "door_red":
+                    //    case "door_blue":
+                    //        _countDoors++; 
+                    //        break;
+                    //    case "box_red":
+                    //    case "box_blue":
+                    //        _countBoxes++;
+                    //        break;
+                    //}
+                    if (item.BackgroundImage == wall)
+                    {
+                        _countWalls++;
+                    }
+                    else if (item.BackgroundImage == door_red || item.BackgroundImage == door_blue)
+                    {
+                        _countDoors++;
+                    }
+                    else if (item.BackgroundImage == box_red || item.BackgroundImage == box_blue)
+                    {
+                        _countBoxes++;
+                    }
+                }
+            }
+
+            Console.WriteLine($"Boxes: {_countBoxes} | Doors: {_countDoors} | Walls: {_countWalls}");
+        }
+
     }
 }
