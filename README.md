@@ -19,8 +19,36 @@
 		- Define the location (How?)
 		- StartLocation = (320,140)
 		- Change the BorderStyle
+		- Add the click event to the pbCell
 		- Add the pbCell to the form
 		- Add the pbCell to the array
+
+### EventHandler pictureBoxWall_Click
+	* Get the name propertie after an element is clicked
+	
+### EventHandler pictureBox1_Click
+	* Add the selected BackgroundImage to the clicked cell
+	
+### EventHandler saveToolStripMenuItem_Click
+	* Save the generated grid to a file
+		- Show the "Save As" menu
+			- Can change the filename
+			- Choose the folder to save
+	* Display a messagebox if OK
+		- DisplaySuccessMessage()
+	* Close the DesignerForm (???)
+	
+### Method CountElements
+	* Will return the number of walls, doors and boxes
+	* Read the entire array and count the elements
+	
+### Method DisplaySuccessMessage
+	* Display a messagebox
+		- "File saved successfully"
+		- Total number o walls: X
+		- Total number o doors: X
+		- Total number o boxes: X
+	* CountElements()
 		
-	
-	
+		
+		

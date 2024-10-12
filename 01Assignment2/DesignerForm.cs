@@ -22,6 +22,7 @@ namespace _01Assignment2
         private int _countWalls;
         private int _countBoxes;
         private int _countDoors;
+        private Boolean fileSaved;
 
 
         // Matriz de PictureBoxes que representará a grade
@@ -84,6 +85,9 @@ namespace _01Assignment2
 
                 }
             }
+
+            //Grid edited without saving
+            fileSaved = false;
         }
 
         private void pictureBoxWall_Click(object sender, EventArgs e)
@@ -122,14 +126,20 @@ namespace _01Assignment2
 
             clickedCell.BackgroundImage = _selectedElement;
 
-            CountElements();
+            //CountElements();
+
+            //Grid edited without saving
+            fileSaved = false;
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            //Save the file
+
             CountElements();
             DisplaySuccessMessage();
-            this.Close();
+            
+            fileSaved = true;
         }
 
         private void CountElements()
@@ -184,5 +194,28 @@ namespace _01Assignment2
             MessageBox.Show(msg);
         }
 
+        private void closeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Check if the grid is saved
+            if (fileSaved)
+            {
+                this.Close();
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show
+                    (
+                        "Level not saved. If you proceed, the current level will be lost.\nWanto to proceed?"
+                        ,"Warning"
+                        ,MessageBoxButtons.YesNo
+                        ,MessageBoxIcon.Warning
+                    );
+                if (result == DialogResult.Yes)
+                {
+                    this.Close();
+                }
+            }
+
+        }
     }
 }
