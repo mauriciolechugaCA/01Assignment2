@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace _01Assignment2
 {
@@ -16,8 +17,8 @@ namespace _01Assignment2
         private int _numRows;
         private int _numCols;
         private const int _pbCellSize = 65;
-        private const int _pbCellStartRow = 320;
-        private const int _pbCellStartCol = 140;
+        private const int _pbCellStartRow = 300;
+        private const int _pbCellStartCol = 40;
         private Image _selectedElement = null;
         private int _countWalls;
         private int _countBoxes;
@@ -25,10 +26,10 @@ namespace _01Assignment2
         private Boolean fileSaved;
 
 
-        // Matriz de PictureBoxes que representará a grade
+        // Array to store the PictureBoxes
         private PictureBox[,] gameGrid;
 
-        //Image cross = _1Assignment1.Properties.Resources.cross1;
+        // Images to be used in the grid elements stored in the resources
         Image box_blue = _01Assignment2.Properties.Resources.box_blue;
         Image box_red = _01Assignment2.Properties.Resources.box_red;
         Image door_blue = _01Assignment2.Properties.Resources.door_blue;
@@ -43,15 +44,15 @@ namespace _01Assignment2
 
         private void btnGenerateGrid_Click(object sender, EventArgs e)
         {
-            //NEED TO ADD THE VALIDATIONS
-            //Input is an integer?
-            //Input is an valid number? (> 0)
-
-
             //Clean the grid if exists
+            ClearGrid();
 
+            //Getting and validating the input
+            if (!ValidateInput())
+            {
+                return;
+            }
 
-            //Getting the input
             _numRows = int.Parse(textBox1.Text);
             _numCols = int.Parse(textBox2.Text);
 
@@ -70,9 +71,8 @@ namespace _01Assignment2
                     pbCell.BorderStyle = BorderStyle.FixedSingle;
                     pbCell.BackgroundImageLayout = ImageLayout.Stretch;
 
-                    //How to calc the location to replace i and j?. We need a logic to place the pbCell to the right location
-                    //pbCell.Location = new Point(320, 140);
-                    pbCell.Location = new Point( ((j*_pbCellSize) + _pbCellStartRow),((i*_pbCellSize) + _pbCellStartCol) );
+                    //Calculate the position of the origin pbCell of the grid
+                    pbCell.Location = new Point(((j * _pbCellSize) + _pbCellStartRow), ((i * _pbCellSize) + _pbCellStartCol));
 
                     //Add the eventhandler to the pbCell
                     pbCell.Click += pictureBox1_Click;
@@ -81,7 +81,7 @@ namespace _01Assignment2
                     Controls.Add(pbCell);
 
                     //Add the object pbCell to the array
-                    gameGrid[i,j] = pbCell;
+                    gameGrid[i, j] = pbCell;
 
                 }
             }
@@ -95,7 +95,7 @@ namespace _01Assignment2
             //Copying the TicTacToe
             PictureBox clickedElement = (PictureBox)sender;
 
-            switch(clickedElement.Name)
+            switch (clickedElement.Name)
             {
                 case "pictureBoxWall":
                     _selectedElement = wall;
@@ -117,7 +117,18 @@ namespace _01Assignment2
                     break;
             }
 
+            if (_selectedElement != null)
+            {
+                //Change the border style of the selected element
+                pictureBoxNone.BorderStyle = BorderStyle.None;
+                pictureBoxWall.BorderStyle = BorderStyle.None;
+                pictureBoxDoorRed.BorderStyle = BorderStyle.None;
+                pictureBoxDoorBlue.BorderStyle = BorderStyle.None;
+                pictureBoxBoxRed.BorderStyle = BorderStyle.None;
+                pictureBoxBoxBlue.BorderStyle = BorderStyle.None;
 
+                clickedElement.BorderStyle = BorderStyle.Fixed3D;
+            }
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
@@ -132,16 +143,35 @@ namespace _01Assignment2
             fileSaved = false;
         }
 
+        /// <summary>
+        /// In the file menu, save the grid and display a message box with the number of walls, doors and boxes in the grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Save the file
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = "Text files (*.txt)|*.txt";
+                saveFileDialog.Title = "Save grid as";
+                saveFileDialog.FileName = "level.txt";
 
-            CountElements();
-            DisplaySuccessMessage();
-            
-            fileSaved = true;
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = saveFileDialog.FileName;
+                    SaveToFile(saveFileDialog.FileName);
+
+                    CountElements();
+                    DisplaySuccessMessage();
+
+                    fileSaved = true;
+                }
+            }
         }
 
+        /// <summary>
+        /// Counts how many wall, doors and boxes are in the grid
+        /// </summary>
         private void CountElements()
         {
             _countBoxes = 0;
@@ -184,6 +214,9 @@ namespace _01Assignment2
             Console.WriteLine($"Boxes: {_countBoxes} | Doors: {_countDoors} | Walls: {_countWalls}");
         }
 
+        /// <summary>
+        /// Display a message box with the number of walls, doors and boxes in the grid
+        /// </summary>
         private void DisplaySuccessMessage()
         {
             string msg = $"File saved successfully!\n" +
@@ -194,6 +227,11 @@ namespace _01Assignment2
             MessageBox.Show(msg);
         }
 
+        /// <summary>
+        /// If the grid is not saved, ask the user if he wants to proceed with the close
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //Check if the grid is saved
@@ -206,16 +244,108 @@ namespace _01Assignment2
                 DialogResult result = MessageBox.Show
                     (
                         "Level not saved. If you proceed, the current level will be lost.\nWanto to proceed?"
-                        ,"Warning"
-                        ,MessageBoxButtons.YesNo
-                        ,MessageBoxIcon.Warning
+                        , "Warning"
+                        , MessageBoxButtons.YesNo
+                        , MessageBoxIcon.Warning
                     );
                 if (result == DialogResult.Yes)
                 {
                     this.Close();
                 }
             }
+        }
 
+        /// <summary>
+        /// Validate the input from the user to make sure it is a valid number between 1 and 10
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateInput()
+        {
+            int num1, num2;
+            bool isNum1Valid = int.TryParse(textBox1.Text, out num1);
+            bool isNum2Valid = int.TryParse(textBox2.Text, out num2);
+
+            // Check if input is an integer
+            if (!isNum1Valid || !isNum2Valid)
+            {
+                MessageBox.Show("Please enter a number between 1 and 10");
+                return false;
+            }
+            // Check if input is between 1 and 10
+            else if (num1 < 1 || num1 > 10 || num2 < 1 || num2 > 10)
+            {
+                MessageBox.Show("Please enter a number between 1 and 10");
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Clear the grid and dispose the PictureBoxes
+        /// </summary>
+        private void ClearGrid()
+        {
+            if (gameGrid != null)
+            {
+                foreach (var pbCell in gameGrid)
+                {
+                    pbCell.BackgroundImage = null;
+                    Controls.Remove(pbCell);
+                    pbCell.Dispose();
+                }
+            }
+            gameGrid = null;
+        }
+
+        /// <summary>
+        /// Save the grid to a txt file
+        /// </summary>
+        /// <param name="filePath"></param>
+
+        // Serialize the grid to a file
+        private void SaveToFile(string filePath)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            for (int i = 0; i < _numRows; i++)
+            {
+                for (int j = 0; j < _numCols; j++)
+                {
+                    if (gameGrid[i, j].BackgroundImage == wall)
+                    {
+                        sb.Append("W"); // W for Wall
+                    }
+                    else if (gameGrid[i, j].BackgroundImage == door_red)
+                    {
+                        sb.Append("DR"); // DR for Door Red
+                    }
+                    else if (gameGrid[i, j].BackgroundImage == door_blue)
+                    {
+                        sb.Append("DB"); // DB for Door Blue
+                    }
+                    else if (gameGrid[i, j].BackgroundImage == box_red)
+                    {
+                        sb.Append("BR"); // BR for Box Red
+                    }
+                    else if (gameGrid[i, j].BackgroundImage == box_blue)
+                    {
+                        sb.Append("BB"); // BB for Box Blue
+                    }
+                    else
+                    {
+                        sb.Append("E"); // E for Empty
+                    }
+
+                    if (j < _numCols - 1)
+                    {
+                        sb.Append(","); // Separate columns with a comma
+                    }
+                }
+                sb.AppendLine(); // New line for each row
+            }
+
+            File.WriteAllText(filePath, sb.ToString());
         }
     }
 }
