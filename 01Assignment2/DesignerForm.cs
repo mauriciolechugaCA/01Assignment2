@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+/*
+ * Assignment 2 - PROG2370
+ * 
+ * Davi Henrique
+ * Fernando Carvalho de Souza
+ * Mauricio Lechuga
+ * 
+ * Due October 20th, 2024
+ */
+
 namespace _01Assignment2
 {
     public partial class DesignerForm : Form
@@ -44,8 +54,25 @@ namespace _01Assignment2
 
         private void btnGenerateGrid_Click(object sender, EventArgs e)
         {
-            //Clean the grid if exists
-            ClearGrid();
+            if (gameGrid != null)
+            {
+                DialogResult result = MessageBox.Show
+                (
+                    "Level not saved. If you proceed, the current level will be lost.\nWanto to proceed?"
+                    , "Warning"
+                    , MessageBoxButtons.YesNo
+                    , MessageBoxIcon.Warning
+                );
+                if (result == DialogResult.Yes)
+                {
+                    ClearGrid();
+                }
+                else
+                {
+                    // Do nothing and keep the grid
+                    return;
+                }
+            }
 
             //Getting and validating the input
             if (!ValidateInput())
