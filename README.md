@@ -45,10 +45,19 @@
 ### Method DisplaySuccessMessage
 	* Display a messagebox
 		- "File saved successfully"
-		- Total number o walls: X
-		- Total number o doors: X
-		- Total number o boxes: X
+		- Total number of walls: X
+		- Total number of doors: X
+		- Total number of boxes: X
 	* CountElements()
-		
-		
+
+### ValidateInput
+	* Returns true if conditions met
+	* Only allows integers between 1 and 10
+ 	* Pops a message box with an error
+
+### ClearGrid
+	* Clears the grid of any images
+
+### SaveToFile
+	* Using loops, we serialize each cell and assign a value that appends to a text file 
 		
