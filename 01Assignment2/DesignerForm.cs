@@ -283,7 +283,7 @@ namespace _01Assignment2
         }
 
         /// <summary>
-        /// Validate the input from the user to make sure it is a valid number between 1 and 10
+        /// Validate the input from the user to make sure it is a valid integer between 1 and 10
         /// </summary>
         /// <returns></returns>
         private bool ValidateInput()
@@ -366,10 +366,10 @@ namespace _01Assignment2
 
                     if (j < _numCols - 1)
                     {
-                        sb.Append(","); // Separate columns with a comma
+                        sb.Append(","); 
                     }
                 }
-                sb.AppendLine(); // New line for each row
+                sb.AppendLine(); 
             }
 
             File.WriteAllText(filePath, sb.ToString());
