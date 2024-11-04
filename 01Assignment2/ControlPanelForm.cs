@@ -30,5 +30,11 @@ namespace _01Assignment2
         {
             this.Close();
         }
+
+        private void btnPlay_Click(object sender, EventArgs e)
+        {
+            PlayForm form = new PlayForm();
+            form.ShowDialog();
+        }
     }
 }

@@ -35,7 +35,6 @@ namespace _01Assignment2
         private int _countDoors;
         private Boolean fileSaved;
 
-
         // Array to store the PictureBoxes
         private PictureBox[,] gameGrid;
 
@@ -185,7 +184,7 @@ namespace _01Assignment2
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string filePath = saveFileDialog.FileName;
+                    //string filePath = saveFileDialog.FileName;
                     SaveToFile(saveFileDialog.FileName);
 
                     CountElements();
@@ -295,7 +294,7 @@ namespace _01Assignment2
             // Check if input is an integer
             if (!isNum1Valid || !isNum2Valid)
             {
-                MessageBox.Show("Please enter a number between 1 and 10");
+                MessageBox.Show("Please enter an integer number between 1 and 10");
                 return false;
             }
             // Check if input is between 1 and 10
