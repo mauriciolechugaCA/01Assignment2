@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using _01Assignment2;
 
+// MOVEMENT NOT WORKING YET
+
 namespace _01Assignment2
 {
     public partial class PlayForm : Form
@@ -17,12 +19,22 @@ namespace _01Assignment2
         private int _numRows;
         private int _numCols;
         private const int _pbCellSize = 65;
-        private const int _pbCellStartRow = 300; //TODO: Change this to adjust to new position
-        private const int _pbCellStartCol = 40; //TODO: Change this to adjust to new position
+        private const int _pbCellStartRow = 40; // TODO: Change this to adjust to new position
+        private const int _pbCellStartCol = 20; // TODO: Change this to adjust to new position
+        private PictureBox selectedBox = null;
+
+        // Images to be used in the grid elements stored in the resources
+        Image box_blue = _01Assignment2.Properties.Resources.box_blue;
+        Image box_red = _01Assignment2.Properties.Resources.box_red;
+        Image door_blue = _01Assignment2.Properties.Resources.door_blue;
+        Image door_red = _01Assignment2.Properties.Resources.door_red;
+        Image wall = _01Assignment2.Properties.Resources.wall;
+
 
         public PlayForm()
         {
             InitializeComponent();
+            KeyPreview = true;
         }
 
         private void loadLevelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -64,7 +76,7 @@ namespace _01Assignment2
                         pbCell.Height = _pbCellSize;
                         pbCell.BorderStyle = BorderStyle.FixedSingle;
                         pbCell.BackgroundImageLayout = ImageLayout.Stretch;
-                        pbCell.Location = new Point(((j * _pbCellSize) + _pbCellStartRow), ((i * _pbCellSize) + _pbCellStartCol));
+                        pbCell.Location = new Point(((j * _pbCellSize) + _pbCellStartCol), ((i * _pbCellSize) + _pbCellStartRow));
 
                         switch (cells[j])
                         {
@@ -88,6 +100,9 @@ namespace _01Assignment2
                                 break;
                         }
 
+                        // Add MouseClick event to the PictureBox
+                        pbCell.MouseClick += PbCell_MouseClick;
+
                         gameGrid[i, j] = pbCell;
                         this.Controls.Add(pbCell);
                     }
@@ -99,9 +114,95 @@ namespace _01Assignment2
             }
         }
 
+        private void PbCell_MouseClick(object sender, MouseEventArgs e)
+        {
+            PictureBox pbCell = (PictureBox)sender;
+
+            if (pbCell.BackgroundImage == box_blue || pbCell.BackgroundImage == box_red)
+            {
+                selectedBox.BorderStyle = BorderStyle.FixedSingle;
+            }
+
+            selectedBox = pbCell;
+            selectedBox.BorderStyle = BorderStyle.Fixed3D;
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// Listens for key presses in order to move the selected box
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlayForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                case Keys.W:
+                    MoveSelectedBox("Up");
+                    break;
+                case Keys.Down:
+                case Keys.S:
+                    MoveSelectedBox("Down");
+                    break;
+                case Keys.Left:
+                case Keys.A:
+                    MoveSelectedBox("Left");
+                    break;
+                case Keys.Right:
+                case Keys.D:
+                    MoveSelectedBox("Right");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void MoveSelectedBox(string direction)
+        {
+            PictureBox selectedBox = null;
+
+            if (selectedBox == null)
+            {
+                MessageBox.Show("Go select a box!");
+                return;
+            }
+
+            switch (direction)
+            {
+                case "Up":
+                    MoveBox(selectedBox, 0, -1);
+                    break;
+                case "Down":
+                    MoveBox(selectedBox, 0, 1);
+                    break;
+                case "Left":
+                    MoveBox(selectedBox, -1, 0);
+                    break;
+                case "Right":
+                    MoveBox(selectedBox, 1, 0);
+                    break;
+            }
+        }
+
+        private void MoveBox(PictureBox box, int deltaX, int deltaY)
+        {
+            int currentRow = (box.Top - _pbCellStartRow) / _pbCellSize;
+            int currentCol = (box.Left - _pbCellStartCol) / _pbCellSize;
+
+            int newRow = currentRow + deltaY;
+            int newCol = currentCol + deltaX;
+
+            // Ensure the new position is within the grid bounds
+            if (newRow >= 0 && newRow < _numRows && newCol >= 0 && newCol < _numCols)
+            {
+                // Move the box to the new position
+                box.Location = new Point((newCol * _pbCellSize) + _pbCellStartCol, (newRow * _pbCellSize) + _pbCellStartRow);
+            }
         }
     }
 }
