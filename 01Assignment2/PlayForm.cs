@@ -19,10 +19,16 @@ namespace _01Assignment2
         private const int _pbCellSize = 65;
         private const int _pbCellStartRow = 300; //TODO: Change this to adjust to new position
         private const int _pbCellStartCol = 40; //TODO: Change this to adjust to new position
+        //Score variables
+        private int movesCount;
+        private int remainingBoxes;
 
         public PlayForm()
         {
             InitializeComponent();
+
+            movesCount = 0;
+            remainingBoxes = 0;
         }
 
         private void loadLevelToolStripMenuItem_Click(object sender, EventArgs e)
@@ -92,6 +98,7 @@ namespace _01Assignment2
                         this.Controls.Add(pbCell);
                     }
                 }
+
             }
             catch (Exception ex)
             {
@@ -103,5 +110,31 @@ namespace _01Assignment2
         {
             this.Close();
         }
+
+        //METHOD: Movement button was pressed
+        private void btnDirectionPressed(object sender, EventArgs e)
+        {
+            //Get the button direction
+
+            //Check if a box is selected
+
+            //Move the box in the direction
+
+            //Update the score
+
+            //Check if the game is over
+
+        }
+
+        //METHOD: Add border to the selected box
+        private void SelectBox(int row, int col)
+        {
+            //Check if the cell is a box
+
+            //Add border to the box
+        }
+
+
+
     }
 }
