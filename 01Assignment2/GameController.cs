@@ -85,9 +85,78 @@ namespace _01Assignment2
         }
 
         //METHOD: Check if the box can move to the selected direction
+        /// <summary>
+        /// Check if the box can move to the selected direction
+        /// </summary>
+        /// <param name="box"></param>
+        /// <param name="direction"></param>
+        /// <returns></returns>
         private bool CanMove(PictureBox box, string direction)
         {
-            
+            // Checking if the PictureBox is a red or blue box
+            if (box.BackgroundImage != Properties.Resources.box_red && box.BackgroundImage != Properties.Resources.box_blue)
+            {
+                return false;
+            }
+
+            // Getting the INITIAL or CURRENT row and column of the selected PictureBox
+            int currentRow = -1, currentCol = -1;
+            for (int i = 0; i < _numRows; i++)
+            {
+                for (int j = 0; j < _numCols; j++)
+                {
+                    if (gameGrid[i, j] == box)
+                    {
+                        currentRow = i;
+                        currentCol = j;
+                        break;
+                    }
+                }
+                if (currentRow != -1)
+                {
+                    break;
+                }
+            }
+
+            // Getting the TARGET or FINAL row and column of the selected PictureBox
+            int targetRow = currentRow, targetCol = currentCol;
+            switch (direction)
+            {
+                case "up":
+                    targetRow--;
+                    break;
+                case "down":
+                    targetRow++;
+                    break;
+                case "left":
+                    targetCol--;
+                    break;
+                case "right":
+                    targetCol++;
+                    break;
+                default:
+                    return false;
+            }
+
+            // Validating if the TARGET cell is inside the grid
+            if (targetRow < 0 || targetRow >= _numRows || targetCol < 0 || targetCol >= _numCols)
+            {
+                return false;
+            }
+
+            // Validating if the TARGET cell is free of walls
+            if (gameGrid[targetRow, targetCol].BackgroundImage == Properties.Resources.wall)
+            {
+                return false;
+            }
+
+            // Validating if the target cell is free of other boxes
+            if (gameGrid[targetRow, targetCol].BackgroundImage == Properties.Resources.box_blue || gameGrid[targetRow, targetCol].BackgroundImage == Properties.Resources.box_red)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
