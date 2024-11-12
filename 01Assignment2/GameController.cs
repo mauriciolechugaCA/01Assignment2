@@ -38,7 +38,9 @@ namespace _01Assignment2
         //METHOD: Update the score. Moves Count and Remaining Boxes
         public void UpdateScoreDisplay()
         {
-            
+            // TODO: Create labels in the form to display the score
+            lblRemainingBoxes.Text = $"Boxes: {remainingBoxes}";
+            lblMovesCount.Text = $"Moves: {movesCount}";
         }
 
         //METHOID: Move the box to the selected direction
