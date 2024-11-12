@@ -24,10 +24,14 @@ namespace _01Assignment2
         private int remainingBoxes;
         //Selected box
         private PictureBox selectedBox;
+        //GameController object
+        private GameController gameController;
 
         public PlayForm()
         {
             InitializeComponent();
+
+            gameController = new GameController(_numRows, _numCols);
 
             movesCount = 0;
             remainingBoxes = 0;
@@ -114,7 +118,7 @@ namespace _01Assignment2
         }
 
         //METHOD: Movement button was pressed
-        private void btnDirectionPressed(object sender, EventArgs e)
+        private void btnDirection_Click(object sender, EventArgs e)
         {
             //Get the button direction
             Button btnPressed = (Button)sender;
@@ -123,21 +127,25 @@ namespace _01Assignment2
             //Check if a box is selected
             if (selectedBox == null)
             {
-                
-
+                MessageBox.Show("Please select a box first!");
+                return;
             }
 
             //Move the box in the direction
+            gameController.MoveBox(selectedBox, direction);
 
             //Update the score
+            //gameController.UpdateScoreDisplay();
+            //I don't need, because the MoveBox will call UpdateScoreDisplay
 
             //Check if the game is over
-
+            //gameController.CheckEndGame();
+            //I don't need, because the MoveBox will call CheckEndGame
         }
 
         //METHOD: Add border to the selected box
-        //TODO: Add this event handler to each pbCell
-        private void SelectBox(int row, int col)
+        //TODO: Add this click event handler to each pbCell
+        private void SelectBox_Click(int row, int col)
         {
             PictureBox pbCell = gameGrid[row, col];
 
@@ -152,7 +160,7 @@ namespace _01Assignment2
             }
             else
             {
-                MessageBox.Show("Please select a box");
+                //MessageBox.Show("Please select a box");
             }
 
         }

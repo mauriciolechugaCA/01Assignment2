@@ -86,6 +86,7 @@
             this.btnLeft.Tag = "Left";
             this.btnLeft.Text = "Left";
             this.btnLeft.UseVisualStyleBackColor = true;
+            this.btnLeft.Click += new System.EventHandler(this.btnDirection_Click);
             // 
             // btnDown
             // 
@@ -96,6 +97,7 @@
             this.btnDown.Tag = "Down";
             this.btnDown.Text = "Down";
             this.btnDown.UseVisualStyleBackColor = true;
+            this.btnDown.Click += new System.EventHandler(this.btnDirection_Click);
             // 
             // btnRight
             // 
@@ -106,6 +108,7 @@
             this.btnRight.Tag = "Right";
             this.btnRight.Text = "Right";
             this.btnRight.UseVisualStyleBackColor = true;
+            this.btnRight.Click += new System.EventHandler(this.btnDirection_Click);
             // 
             // btnUp
             // 
@@ -116,6 +119,7 @@
             this.btnUp.Tag = "Up";
             this.btnUp.Text = "Up";
             this.btnUp.UseVisualStyleBackColor = true;
+            this.btnUp.Click += new System.EventHandler(this.btnDirection_Click);
             // 
             // lblNumMoves
             // 
