@@ -32,16 +32,16 @@ namespace _01Assignment2
         ////METHOD: Load the level from the design file. Create each PictureBox and add it to the form
         //public void LoadLevel(string filePath, Control formControls)
         //{
-            
+
         //}
 
         //METHOD: Update the score. Moves Count and Remaining Boxes
-        public void UpdateScoreDisplay()
-        {
-            // TODO: Create labels in the form to display the score
-            lblRemainingBoxes.Text = $"Boxes: {remainingBoxes}";
-            lblMovesCount.Text = $"Moves: {movesCount}";
-        }
+        //public void UpdateScoreDisplay()
+        //{
+        //    // TODO: Create labels in the form to display the score
+        //    txtRemainingBoxes.Text = $"Boxes: {remainingBoxes}";
+        //    txtNumMoves.Text = $"Moves: {movesCount}";
+        //}
 
         //METHOID: Move the box to the selected direction
         public void MoveBox(PictureBox selectedBox, string direction)
@@ -49,14 +49,14 @@ namespace _01Assignment2
             //Check if the box get the door
 
             //Check if the box can move to the selected direction
-            CanMove();
+            //CanMove();
 
             //Change the variables
             remainingBoxes--;
             movesCount++;
 
             //Update score after each valid move
-            UpdateScoreDisplay();
+            //UpdateScoreDisplay();
 
             //Check for end game
             CheckEndGame();
