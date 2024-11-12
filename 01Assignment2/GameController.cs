@@ -29,11 +29,11 @@ namespace _01Assignment2
             gameGrid = new PictureBox[_numRows, _numCols];
         }
 
-        //METHOD: Load the level from the design file. Create each PictureBox and add it to the form
-        public void LoadLevel(string filePath, Control formControls)
-        {
+        ////METHOD: Load the level from the design file. Create each PictureBox and add it to the form
+        //public void LoadLevel(string filePath, Control formControls)
+        //{
             
-        }
+        //}
 
         //METHOD: Update the score. Moves Count and Remaining Boxes
         public void UpdateScoreDisplay()
@@ -57,11 +57,11 @@ namespace _01Assignment2
             UpdateScoreDisplay();
 
             //Check for end game
-            CheckGameEnd();
+            CheckEndGame();
         }
 
         //METHOD: Check if the game is over
-        private void CheckGameEnd()
+        private void CheckEndGame()
         {
             if (remainingBoxes == 0)
             {
