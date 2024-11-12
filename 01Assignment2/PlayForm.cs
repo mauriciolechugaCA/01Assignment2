@@ -22,6 +22,8 @@ namespace _01Assignment2
         //Score variables
         private int movesCount;
         private int remainingBoxes;
+        //Selected box
+        private PictureBox selectedBox;
 
         public PlayForm()
         {
@@ -115,8 +117,15 @@ namespace _01Assignment2
         private void btnDirectionPressed(object sender, EventArgs e)
         {
             //Get the button direction
+            Button btnPressed = (Button)sender;
+            string direction = btnPressed.Tag.ToString();
 
             //Check if a box is selected
+            if (selectedBox == null)
+            {
+                
+
+            }
 
             //Move the box in the direction
 
@@ -127,11 +136,25 @@ namespace _01Assignment2
         }
 
         //METHOD: Add border to the selected box
+        //TODO: Add this event handler to each pbCell
         private void SelectBox(int row, int col)
         {
-            //Check if the cell is a box
+            PictureBox pbCell = gameGrid[row, col];
 
-            //Add border to the box
+            //Check if the cell is a box
+            if (pbCell.BackgroundImage == Properties.Resources.box_blue || pbCell.BackgroundImage == Properties.Resources.box_red)
+            {
+                //Add border to the box
+                pbCell.BorderStyle = BorderStyle.Fixed3D;
+
+                //Saving the selected box
+                selectedBox = pbCell;
+            }
+            else
+            {
+                MessageBox.Show("Please select a box");
+            }
+
         }
 
 
