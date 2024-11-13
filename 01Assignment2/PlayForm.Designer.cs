@@ -126,7 +126,7 @@
             this.lblNumMoves.AutoSize = true;
             this.lblNumMoves.Location = new System.Drawing.Point(43, 69);
             this.lblNumMoves.Name = "lblNumMoves";
-            this.lblNumMoves.Size = new System.Drawing.Size(145, 20);
+            this.lblNumMoves.Size = new System.Drawing.Size(116, 16);
             this.lblNumMoves.TabIndex = 6;
             this.lblNumMoves.Text = "Number of Moves:";
             // 
@@ -135,7 +135,7 @@
             this.lblRemainingBoxes.AutoSize = true;
             this.lblRemainingBoxes.Location = new System.Drawing.Point(43, 164);
             this.lblRemainingBoxes.Name = "lblRemainingBoxes";
-            this.lblRemainingBoxes.Size = new System.Drawing.Size(230, 20);
+            this.lblRemainingBoxes.Size = new System.Drawing.Size(184, 16);
             this.lblRemainingBoxes.TabIndex = 7;
             this.lblRemainingBoxes.Text = "Number of Remaining Boxes::";
             // 
@@ -170,7 +170,7 @@
             this.Controls.Add(this.btnLeft);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PlayForm";
             this.Text = "PlayForm";
             this.menuStrip1.ResumeLayout(false);

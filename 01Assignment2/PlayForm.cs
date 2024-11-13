@@ -216,6 +216,14 @@ namespace _01Assignment2
             //if (pbCell.BackgroundImage == Properties.Resources.box_blue || pbCell.BackgroundImage == Properties.Resources.box_red)
             if (pbCell.Tag == "box_red" || pbCell.Tag == "box_blue")
             {
+
+                //Checking if a box is already selected
+                if (selectedBox != null)
+                {
+                    //Remove the border
+                    selectedBox.BorderStyle = BorderStyle.None;
+                }
+
                 //Add border to the box
                 pbCell.BorderStyle = BorderStyle.Fixed3D;
 
