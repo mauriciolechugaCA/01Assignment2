@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,11 @@ namespace _01Assignment2
             {
                 string filePath = openFileDialog.FileName;
                 LoadLevel(filePath);
+
+                Debug.WriteLine("Loadlevel finished");
+
+                //Adding the event handler after the load
+                AddClickEvent();
             }
         }
 
@@ -91,9 +97,13 @@ namespace _01Assignment2
                                 break;
                             case "BR":
                                 pbCell.BackgroundImage = Properties.Resources.box_red;
+                                pbCell.Tag = "box_red";
+                                //Adding the event handler to each Box
+                                //pbCell.Click += (sender, e) => SelectBox_Click(i, j);
                                 break;
                             case "BB":
                                 pbCell.BackgroundImage = Properties.Resources.box_blue;
+                                pbCell.Tag = "box_blue";
                                 break;
                             default:
                                 pbCell.BackgroundImage = null;
@@ -101,6 +111,12 @@ namespace _01Assignment2
                         }
 
                         gameGrid[i, j] = pbCell;
+
+                        //Adding the event handler to each PictureBox
+                        //pbCell.Click += new EventHandler(SelectBox_Click(i, j));
+                        //pbCell.Click += (sender, e) => SelectBox_Click(i, j);
+
+
                         this.Controls.Add(pbCell);
                     }
                 }
@@ -109,6 +125,30 @@ namespace _01Assignment2
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading level: {ex.Message}");
+            }
+        }
+
+        //METHOD: Add the event handler to each PictureBox
+        private void AddClickEvent()
+        {
+            for (int i = 0; i < _numRows; i++)
+            {
+                for (int j = 0; j < _numCols; j++)
+                {
+                    PictureBox pbCell = gameGrid[i, j];
+
+                    Debug.WriteLine($"Click event check: rol: {i} | col: {j}");
+
+                    //Only for boxes
+                    //if (pbCell.BackgroundImage == Properties.Resources.box_blue || pbCell.BackgroundImage == Properties.Resources.box_red)
+                    if (pbCell.Tag == "box_red" || pbCell.Tag == "box_blue")
+                    {
+                        Debug.WriteLine($"Click event: rol: {i} | col: {j}");
+                        //gameGrid[i, j].Click += (sender, e) => SelectBox_Click(i, j);
+                        gameGrid[i, j].Click += ClickEventBox;
+                    }
+
+                }
             }
         }
 
@@ -143,14 +183,38 @@ namespace _01Assignment2
             //I don't need, because the MoveBox will call CheckEndGame
         }
 
+
+        //METHOD: Call the SlectBox_Click when a Box is clicked
+        private void ClickEventBox(object sender, EventArgs e)
+        {
+            PictureBox clickedBox = sender as PictureBox;
+
+            //Searching the position of the clicked box
+            for (int i = 0; i < _numRows; i++)
+            {
+                for (int j = 0; j < _numCols; j++)
+                {
+                    if (gameGrid[i, j] == clickedBox)
+                    {
+                        //Calling the SelectBox_Click with the position
+                        SelectBox_Click(i, j);
+                        return;
+                    }
+                }
+            }
+        }
+
+
         //METHOD: Add border to the selected box
-        //TODO: Add this click event handler to each pbCell
         private void SelectBox_Click(int row, int col)
         {
+            Debug.WriteLine($"Selected: rol: {row} | col: {col}");
+
             PictureBox pbCell = gameGrid[row, col];
 
             //Check if the cell is a box
-            if (pbCell.BackgroundImage == Properties.Resources.box_blue || pbCell.BackgroundImage == Properties.Resources.box_red)
+            //if (pbCell.BackgroundImage == Properties.Resources.box_blue || pbCell.BackgroundImage == Properties.Resources.box_red)
+            if (pbCell.Tag == "box_red" || pbCell.Tag == "box_blue")
             {
                 //Add border to the box
                 pbCell.BorderStyle = BorderStyle.Fixed3D;
@@ -158,10 +222,12 @@ namespace _01Assignment2
                 //Saving the selected box
                 selectedBox = pbCell;
             }
-            else
-            {
-                //MessageBox.Show("Please select a box");
-            }
+
+            //I don`t need to do nothing if the cell is not a box
+            //else
+            //{
+            //    MessageBox.Show("Please select a box");
+            //}
 
         }
 
