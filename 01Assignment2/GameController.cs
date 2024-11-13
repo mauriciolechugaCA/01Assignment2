@@ -75,8 +75,22 @@ namespace _01Assignment2
         //METHOD: Reset the game
         private void ResetGame()
         {
-            //Initialize the counts
-            //Clear the grid
+            // Reset the counts
+            movesCount = 0;
+            remainingBoxes = 0;
+
+            // Clear the grid
+            if (gameGrid != null)
+            {
+                foreach (var pbCell in gameGrid)
+                {
+                    pbCell.BackgroundImage = null;
+                    pbCell.Dispose();
+                }
+            }
+
+            //txtRemainingBoxes.Text = $"Boxes: {0}";
+            //txtNumMoves.Text = $"Moves: {0}";
         }
 
         //METHOD: Get the cell in the array
