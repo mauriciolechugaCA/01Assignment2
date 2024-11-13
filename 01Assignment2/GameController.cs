@@ -174,5 +174,21 @@ namespace _01Assignment2
 
             return true;
         }
+        // METHOD: Check if the box moves to a correspoinding door
+        // and returns true if the box is matching the door
+        private bool IsMatchingDoor(PictureBox box, PictureBox destination)
+        {
+            if (box.BackgroundImage == Properties.Resources.box_red && destination.BackgroundImage == Properties.Resources.door_red)
+            {
+                return true;
+            }
+            else if (box.BackgroundImage == Properties.Resources.box_blue && destination.BackgroundImage == Properties.Resources.door_blue)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
     }
 }
