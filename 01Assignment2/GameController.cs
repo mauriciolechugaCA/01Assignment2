@@ -162,52 +162,24 @@ namespace _01Assignment2
 
                 //Increase the moves count
                 movesCount++;
+
+                //Checking if the box is matching the door
+                if (isMatchingDoor(validRow, validCol, boxColor))
+                {
+                    //Remove the box from the grid
+                    gameGrid[validRow, validCol].BackgroundImage = null;
+                    gameGrid[validRow, validCol].Tag = null;
+
+                    //Decrease the remaining boxes
+                    remainingBoxes--;
+
+                }
+
             }
 
 
-            //while (isCanMove(nextRow, nextCol))
-            //{
-            //        //Moving the position to the next cell
-            //        switch (direction)
-            //        {
-            //            case "Up":
-            //                nextRow--;
-            //                break;
-            //            case "Down":
-            //                nextRow++;
-            //                break;
-            //            case "Left":
-            //                nextCol--;
-            //                break;
-            //            case "Right":
-            //                nextCol++;
-            //                break;
-            //            default:
-            //                break;
-            //        }
 
-            //    Debug.WriteLine($"MoveBox Next: rol: {nextRow} | col: {nextCol}");
-            //}
-
-            //Checking if the next cell is different from the current cell
-            if (currentRow != nextRow || currentCol != nextCol)
-            {
-                //Increase the moves count
-                movesCount++;
-            }
-
-            //Checking if the box is matching the door
-            if (isMatchingDoor(nextRow, nextCol, boxColor))
-            {
-                //Decrease the remaining boxes
-                remainingBoxes--;
-
-                //Remove the box from the grid
-                gameGrid[currentRow, currentCol].BackgroundImage = null;
-                gameGrid[currentRow, currentCol].Tag = null;
-
-                CheckEndGame();
-            }
+            //CheckEndGame();
 
         }
 
@@ -240,7 +212,12 @@ namespace _01Assignment2
             //Checking up. If the row is 0, outo of limits
             if (row - 1 >= 0)
             {
-                if (gameGrid[row - 1, col].Tag == "door_" + boxColor)
+                //if (gameGrid[row - 1, col].Tag == "door_" + boxColor)
+                //{
+                //    return true;
+                //}
+                Debug.WriteLine($"isMatchingDoor UP: rol: {row - 1} | col: {col} | Tag: {gameGrid[row - 1, col].Tag} boxColor: {boxColor}");
+                if ((boxColor == "box_blue" && gameGrid[row - 1, col].Tag == "door_blue") || (boxColor == "box_red" && gameGrid[row - 1, col].Tag == "door_red"))
                 {
                     return true;
                 }
@@ -249,7 +226,12 @@ namespace _01Assignment2
             //Checking down
             if (row + 1 < _numRows)
             {
-                if (gameGrid[row + 1, col].Tag == "door_" + boxColor)
+                //if (gameGrid[row + 1, col].Tag == "door_" + boxColor)
+                //{
+                //    return true;
+                //}
+                Debug.WriteLine($"isMatchingDoor Down: rol: {row + 1} | col: {col} | Tag: {gameGrid[row + 1, col].Tag} boxColor: {boxColor}");
+                if ((boxColor == "box_blue" && gameGrid[row + 1, col].Tag == "door_blue") || (boxColor == "box_red" && gameGrid[row + 1, col].Tag == "door_red"))
                 {
                     return true;
                 }
@@ -258,7 +240,12 @@ namespace _01Assignment2
             //Checking left
             if (col - 1 >= 0)
             {
-                if (gameGrid[row, col - 1].Tag == "door_" + boxColor)
+                //if (gameGrid[row, col - 1].Tag == "door_" + boxColor)
+                //{
+                //    return true;
+                //}
+                Debug.WriteLine($"isMatchingDoor Left: rol: {row} | col: {col - 1} | Tag: {gameGrid[row, col - 1].Tag} boxColor: {boxColor}");
+                if ((boxColor == "box_blue" && gameGrid[row, col - 1].Tag == "door_blue") || (boxColor == "box_red" && gameGrid[row, col - 1].Tag == "door_red"))
                 {
                     return true;
                 }
@@ -267,7 +254,12 @@ namespace _01Assignment2
             //Checking right
             if (col + 1 < _numCols)
             {
-                if (gameGrid[row, col + 1].Tag == "door_" + boxColor)
+                //if (gameGrid[row, col + 1].Tag == "door_" + boxColor)
+                //{
+                //    return true;
+                //}
+                Debug.WriteLine($"isMatchingDoor Right: rol: {row} | col: {col + 1} | Tag: {gameGrid[row, col + 1].Tag} boxColor: {boxColor}");
+                if ((boxColor == "box_blue" && gameGrid[row, col + 1].Tag == "door_blue") || (boxColor == "box_red" && gameGrid[row, col + 1].Tag == "door_red"))
                 {
                     return true;
                 }
