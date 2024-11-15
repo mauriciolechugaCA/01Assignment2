@@ -269,6 +269,7 @@ namespace _01Assignment2
             {
                 MessageBox.Show("Game Over!\nCongrats!");
                 ResetGame();
+                form.DisableButtons();
             }
         }
 
@@ -288,9 +289,7 @@ namespace _01Assignment2
                     pbCell.Dispose();
                 }
             }
-
-            //txtRemainingBoxes.Text = $"Boxes: {0}";
-            //txtNumMoves.Text = $"Moves: {0}";
+            UpdateScoreDisplay();
         }
 
 

@@ -50,7 +50,8 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1344, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1008, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -60,28 +61,30 @@
             this.loadLevelToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // loadLevelToolStripMenuItem
             // 
             this.loadLevelToolStripMenuItem.Name = "loadLevelToolStripMenuItem";
-            this.loadLevelToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
+            this.loadLevelToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.loadLevelToolStripMenuItem.Text = "Load Level...";
             this.loadLevelToolStripMenuItem.Click += new System.EventHandler(this.loadLevelToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(172, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
             this.exitToolStripMenuItem.Text = "Close";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btnLeft
             // 
-            this.btnLeft.Location = new System.Drawing.Point(21, 618);
+            this.btnLeft.Enabled = false;
+            this.btnLeft.Location = new System.Drawing.Point(16, 502);
+            this.btnLeft.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnLeft.Name = "btnLeft";
-            this.btnLeft.Size = new System.Drawing.Size(70, 70);
+            this.btnLeft.Size = new System.Drawing.Size(52, 57);
             this.btnLeft.TabIndex = 2;
             this.btnLeft.Tag = "Left";
             this.btnLeft.Text = "Left";
@@ -90,9 +93,11 @@
             // 
             // btnDown
             // 
-            this.btnDown.Location = new System.Drawing.Point(97, 618);
+            this.btnDown.Enabled = false;
+            this.btnDown.Location = new System.Drawing.Point(73, 502);
+            this.btnDown.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnDown.Name = "btnDown";
-            this.btnDown.Size = new System.Drawing.Size(70, 70);
+            this.btnDown.Size = new System.Drawing.Size(52, 57);
             this.btnDown.TabIndex = 3;
             this.btnDown.Tag = "Down";
             this.btnDown.Text = "Down";
@@ -101,9 +106,11 @@
             // 
             // btnRight
             // 
-            this.btnRight.Location = new System.Drawing.Point(173, 618);
+            this.btnRight.Enabled = false;
+            this.btnRight.Location = new System.Drawing.Point(130, 502);
+            this.btnRight.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnRight.Name = "btnRight";
-            this.btnRight.Size = new System.Drawing.Size(70, 70);
+            this.btnRight.Size = new System.Drawing.Size(52, 57);
             this.btnRight.TabIndex = 4;
             this.btnRight.Tag = "Right";
             this.btnRight.Text = "Right";
@@ -112,9 +119,11 @@
             // 
             // btnUp
             // 
-            this.btnUp.Location = new System.Drawing.Point(97, 542);
+            this.btnUp.Enabled = false;
+            this.btnUp.Location = new System.Drawing.Point(73, 440);
+            this.btnUp.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnUp.Name = "btnUp";
-            this.btnUp.Size = new System.Drawing.Size(70, 70);
+            this.btnUp.Size = new System.Drawing.Size(52, 57);
             this.btnUp.TabIndex = 5;
             this.btnUp.Tag = "Up";
             this.btnUp.Text = "Up";
@@ -124,42 +133,46 @@
             // lblNumMoves
             // 
             this.lblNumMoves.AutoSize = true;
-            this.lblNumMoves.Location = new System.Drawing.Point(43, 69);
+            this.lblNumMoves.Location = new System.Drawing.Point(32, 56);
+            this.lblNumMoves.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblNumMoves.Name = "lblNumMoves";
-            this.lblNumMoves.Size = new System.Drawing.Size(116, 16);
+            this.lblNumMoves.Size = new System.Drawing.Size(94, 13);
             this.lblNumMoves.TabIndex = 6;
             this.lblNumMoves.Text = "Number of Moves:";
             // 
             // lblRemainingBoxes
             // 
             this.lblRemainingBoxes.AutoSize = true;
-            this.lblRemainingBoxes.Location = new System.Drawing.Point(43, 164);
+            this.lblRemainingBoxes.Location = new System.Drawing.Point(32, 133);
+            this.lblRemainingBoxes.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblRemainingBoxes.Name = "lblRemainingBoxes";
-            this.lblRemainingBoxes.Size = new System.Drawing.Size(184, 16);
+            this.lblRemainingBoxes.Size = new System.Drawing.Size(147, 13);
             this.lblRemainingBoxes.TabIndex = 7;
             this.lblRemainingBoxes.Text = "Number of Remaining Boxes::";
             // 
             // txtNumMoves
             // 
-            this.txtNumMoves.Location = new System.Drawing.Point(46, 92);
+            this.txtNumMoves.Location = new System.Drawing.Point(34, 75);
+            this.txtNumMoves.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtNumMoves.Name = "txtNumMoves";
             this.txtNumMoves.ReadOnly = true;
-            this.txtNumMoves.Size = new System.Drawing.Size(100, 22);
+            this.txtNumMoves.Size = new System.Drawing.Size(76, 20);
             this.txtNumMoves.TabIndex = 8;
             // 
             // txtRemainingBoxes
             // 
-            this.txtRemainingBoxes.Location = new System.Drawing.Point(46, 187);
+            this.txtRemainingBoxes.Location = new System.Drawing.Point(34, 152);
+            this.txtRemainingBoxes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtRemainingBoxes.Name = "txtRemainingBoxes";
             this.txtRemainingBoxes.ReadOnly = true;
-            this.txtRemainingBoxes.Size = new System.Drawing.Size(100, 22);
+            this.txtRemainingBoxes.Size = new System.Drawing.Size(76, 20);
             this.txtRemainingBoxes.TabIndex = 9;
             // 
             // PlayForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1344, 897);
+            this.ClientSize = new System.Drawing.Size(1008, 729);
             this.Controls.Add(this.txtRemainingBoxes);
             this.Controls.Add(this.txtNumMoves);
             this.Controls.Add(this.lblRemainingBoxes);
@@ -170,7 +183,6 @@
             this.Controls.Add(this.btnLeft);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "PlayForm";
             this.Text = "PlayForm";
             this.menuStrip1.ResumeLayout(false);

@@ -141,10 +141,9 @@ namespace _01Assignment2
                 gameController = new GameController(_numRows, _numCols, gameGrid, remainingBoxes, this);
                 Debug.WriteLine($"GameController created:_numRows: {_numRows} | _numCols: {_numCols} | remainingBoxes: {remainingBoxes} ");
 
-
-
                 gameController.UpdateScoreDisplay();
 
+                EnableButtons();
 
             }
             catch (Exception ex)
@@ -275,7 +274,22 @@ namespace _01Assignment2
 
         }
 
+        public void DisableButtons()
+        {
+            btnUp.Enabled = false;
+            btnDown.Enabled = false;
+            btnLeft.Enabled = false;
+            btnRight.Enabled = false;
 
+        }
+
+        public void EnableButtons()
+        {
+            btnUp.Enabled = true;
+            btnDown.Enabled = true;
+            btnLeft.Enabled = true;
+            btnRight.Enabled = true;
+        }
 
     }
 }
