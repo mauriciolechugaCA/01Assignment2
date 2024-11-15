@@ -32,8 +32,6 @@ namespace _01Assignment2
         {
             InitializeComponent();
 
-            gameController = new GameController(_numRows, _numCols);
-
             movesCount = 0;
             remainingBoxes = 0;
         }
@@ -88,12 +86,15 @@ namespace _01Assignment2
                         {
                             case "W":
                                 pbCell.BackgroundImage = Properties.Resources.wall;
+                                pbCell.Tag = "wall";
                                 break;
                             case "DR":
                                 pbCell.BackgroundImage = Properties.Resources.door_red;
+                                pbCell.Tag = "door_red";
                                 break;
                             case "DB":
                                 pbCell.BackgroundImage = Properties.Resources.door_blue;
+                                pbCell.Tag = "door_blue";
                                 break;
                             case "BR":
                                 pbCell.BackgroundImage = Properties.Resources.box_red;
@@ -121,6 +122,9 @@ namespace _01Assignment2
                     }
                 }
 
+                //Creating the GameController object
+                gameController = new GameController(_numRows, _numCols, gameGrid);
+
             }
             catch (Exception ex)
             {
@@ -137,16 +141,19 @@ namespace _01Assignment2
                 {
                     PictureBox pbCell = gameGrid[i, j];
 
-                    Debug.WriteLine($"Click event check: rol: {i} | col: {j}");
+                    //Debug.WriteLine($"Click event check: rol: {i} | col: {j}");
 
                     //Only for boxes
                     //if (pbCell.BackgroundImage == Properties.Resources.box_blue || pbCell.BackgroundImage == Properties.Resources.box_red)
-                    if (pbCell.Tag == "box_red" || pbCell.Tag == "box_blue")
-                    {
-                        Debug.WriteLine($"Click event: rol: {i} | col: {j}");
-                        //gameGrid[i, j].Click += (sender, e) => SelectBox_Click(i, j);
-                        gameGrid[i, j].Click += ClickEventBox;
-                    }
+                    //if (pbCell.Tag == "box_red" || pbCell.Tag == "box_blue")
+                    //{
+                    //    //Debug.WriteLine($"Click event: rol: {i} | col: {j}");
+                    //    //gameGrid[i, j].Click += (sender, e) => SelectBox_Click(i, j);
+                    //    gameGrid[i, j].Click += ClickEventBox;
+                    //}
+
+                    //Needs to add the event handler to all PictureBox
+                    gameGrid[i, j].Click += ClickEventBox;
 
                 }
             }
@@ -164,6 +171,8 @@ namespace _01Assignment2
             Button btnPressed = (Button)sender;
             string direction = btnPressed.Tag.ToString();
 
+            Debug.WriteLine($"Direction: {direction}");
+
             //Check if a box is selected
             if (selectedBox == null)
             {
@@ -174,13 +183,7 @@ namespace _01Assignment2
             //Move the box in the direction
             gameController.MoveBox(selectedBox, direction);
 
-            //Update the score
-            //gameController.UpdateScoreDisplay();
-            //I don't need, because the MoveBox will call UpdateScoreDisplay
-
-            //Check if the game is over
-            //gameController.CheckEndGame();
-            //I don't need, because the MoveBox will call CheckEndGame
+    
         }
 
 
@@ -188,6 +191,13 @@ namespace _01Assignment2
         private void ClickEventBox(object sender, EventArgs e)
         {
             PictureBox clickedBox = sender as PictureBox;
+
+            //Checking if the clicked cell is a box
+            if (clickedBox.Tag != "box_red" && clickedBox.Tag != "box_blue")
+            {
+                //Don't need to do nothing if the cell is not a box
+                return;
+            }
 
             //Searching the position of the clicked box
             for (int i = 0; i < _numRows; i++)
@@ -221,21 +231,15 @@ namespace _01Assignment2
                 if (selectedBox != null)
                 {
                     //Remove the border
-                    selectedBox.BorderStyle = BorderStyle.None;
+                    selectedBox.BorderStyle = BorderStyle.FixedSingle;
                 }
 
-                //Add border to the box
+                //Add border to the new selected box
                 pbCell.BorderStyle = BorderStyle.Fixed3D;
 
-                //Saving the selected box
+                //Saving the new selected box
                 selectedBox = pbCell;
             }
-
-            //I don`t need to do nothing if the cell is not a box
-            //else
-            //{
-            //    MessageBox.Show("Please select a box");
-            //}
 
         }
 

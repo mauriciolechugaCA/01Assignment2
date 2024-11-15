@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +19,7 @@ namespace _01Assignment2
         private int remainingBoxes;
 
         //Default Constructor
-        public GameController(int rows, int cols)
+        public GameController(int rows, int cols, PictureBox[,] grid)
         {
             _numRows = rows;
             _numCols = cols;
@@ -26,7 +27,8 @@ namespace _01Assignment2
             remainingBoxes = 0;
 
             //Creating the grid
-            gameGrid = new PictureBox[_numRows, _numCols];
+            //gameGrid = new PictureBox[_numRows, _numCols];
+            gameGrid = grid;
         }
 
         ////METHOD: Load the level from the design file. Create each PictureBox and add it to the form
@@ -44,23 +46,236 @@ namespace _01Assignment2
         //}
 
         //METHOID: Move the box to the selected direction
+        //TODO: I need to check the next cell each time calling CanMove()
+        //TODO: Get the current position of the box, color and direction
+        //TODO: Loop to check each cell in the direction. Stop when the next cell is a wall or a box or other thing
+        //TODO: Check if the box is matching the door
+        //TODO: If current cell is different from updatedcell, increase the moves count
+        //TODO: If box is matching the door, decrease the remaining boxes AND remove the box
         public void MoveBox(PictureBox selectedBox, string direction)
         {
-            //Check if the box get the door
 
-            //Check if the box can move to the selected direction
-            //CanMove();
+            int currentRow = -1;
+            int currentCol = -1;
+            string boxColor = "";
 
-            //Change the variables
-            remainingBoxes--;
-            movesCount++;
+            Debug.WriteLine($"_numRows: {_numRows} | _numCols: {_numCols}");
 
-            //Update score after each valid move
-            //UpdateScoreDisplay();
+            //TODO: Create a method to get the current position of the box.
+            //TODO: Because now I need to loop everything to find the box position. I can use return with the method to get out of the loop
+            //TODO: Return the row and col
+            //Get the current row and column of the selected box
+            for (int i = 0; i < _numRows; i++)
+            {
+                for (int j = 0; j < _numCols; j++)
+                {
+                    //Debug.WriteLine($"Loop to find the box position: iRol: {i} | jCol: {j}");
+                    if (gameGrid[i, j] == selectedBox)
+                    {
+                        //Getting the position
+                        currentRow = i;
+                        currentCol = j;
+                    }
+                }
+            }
 
-            //Check for end game
-            CheckEndGame();
+            Debug.WriteLine($"MoveBox Current: rol: {currentRow} | col: {currentCol}");
+
+            //Get the box color
+            boxColor = selectedBox.Tag.ToString();
+            //if (selectedBox.BackgroundImage == Properties.Resources.box_red)
+            //{
+            //    boxColor = "red";
+            //}
+            //else if (selectedBox.BackgroundImage == Properties.Resources.box_blue)
+            //{
+            //    boxColor = "blue";
+            //}
+
+            Debug.WriteLine($"MoveBox BoxColor: {boxColor}");
+
+            //Loop to check each cell in the direction. Stop when the next cell is a wall, a box or out of limits
+            int nextRow = currentRow;
+            int nextCol = currentCol;
+
+            Debug.WriteLine($"isCanMove out of while: {isCanMove(nextRow, nextCol)}");
+
+            //Loop to check each cell in the direction. Stop when the next cell is a wall, a box or out of limits
+
+            //Variables to store the last valid position
+            int validRow = currentRow;
+            int validCol = currentCol;
+
+            //Loop to check each cell in the direction. Stop when the next cell is a wall, a box or out of limits
+            //Stop only if hists the break on ifs
+            while (true)
+            {
+                //Going to the next cell
+                switch (direction)
+                {
+                    case "Up":
+                        nextRow--;
+                        break;
+                    case "Down":
+                        nextRow++;
+                        break;
+                    case "Left":
+                        nextCol--;
+                        break;
+                    case "Right":
+                        nextCol++;
+                        break;
+                    default:
+                        break;
+                }
+
+                Debug.WriteLine($"MoveBox WHILE Next [{nextRow},{nextCol}] || Current [{currentRow},{currentCol}] || Valid [{validRow},{validCol}]");
+
+
+                //Checking if the next cell is empty
+                if (!isCanMove(nextRow, nextCol))
+                {
+                    Debug.WriteLine($"MoveBox isCanMove is false: rol: {nextRow} | col: {nextCol}");
+                    break;
+                }
+
+                //Update the last valid position
+                validRow = nextRow;
+                validCol = nextCol;
+
+            }
+
+            Debug.WriteLine($"MoveBox WHILE out: {isCanMove(nextRow, nextCol)}");
+
+            //Checking if the box was moved
+            if (validRow != currentRow || validCol != currentCol)
+            {
+                Debug.WriteLine($"MoveBox IF the box was moved Next [{nextRow},{nextCol}] || Current [{currentRow},{currentCol}] || Valid [{validRow},{validCol}]");
+
+                //Update the cell with the box
+                gameGrid[validRow, validCol].BackgroundImage = selectedBox.BackgroundImage;
+                gameGrid[validRow, validCol].Tag = selectedBox.Tag;
+
+                //Remove the box from the current cell
+                gameGrid[currentRow, currentCol].BackgroundImage = null;
+                gameGrid[currentRow, currentCol].Tag = null;
+
+                //Increase the moves count
+                movesCount++;
+            }
+
+
+            //while (isCanMove(nextRow, nextCol))
+            //{
+            //        //Moving the position to the next cell
+            //        switch (direction)
+            //        {
+            //            case "Up":
+            //                nextRow--;
+            //                break;
+            //            case "Down":
+            //                nextRow++;
+            //                break;
+            //            case "Left":
+            //                nextCol--;
+            //                break;
+            //            case "Right":
+            //                nextCol++;
+            //                break;
+            //            default:
+            //                break;
+            //        }
+
+            //    Debug.WriteLine($"MoveBox Next: rol: {nextRow} | col: {nextCol}");
+            //}
+
+            //Checking if the next cell is different from the current cell
+            if (currentRow != nextRow || currentCol != nextCol)
+            {
+                //Increase the moves count
+                movesCount++;
+            }
+
+            //Checking if the box is matching the door
+            if (isMatchingDoor(nextRow, nextCol, boxColor))
+            {
+                //Decrease the remaining boxes
+                remainingBoxes--;
+
+                //Remove the box from the grid
+                gameGrid[currentRow, currentCol].BackgroundImage = null;
+                gameGrid[currentRow, currentCol].Tag = null;
+
+                CheckEndGame();
+            }
+
         }
+
+        //METHOD: Check if the box can move to the selected direction
+        private bool isCanMove(int row, int col)
+        {
+            if (row < 0 || row >= _numRows || col < 0 || col >= _numCols)
+            {
+                Debug.WriteLine($"isCanmove. Out of limits: rol: {row} | col: {col}");
+                return false;
+            }
+
+            PictureBox cellToCheck = gameGrid[row, col];
+
+            Debug.WriteLine($"isCanMove: rol: {row} | col: {col} | Tag: {cellToCheck.Tag}");
+            //Checking if the cell is empty
+            if (cellToCheck.Tag is null)
+            {
+                Debug.WriteLine($"isCanmove true. Empty cell: rol: {row} | col: {col}");
+                return true;
+            }
+
+            Debug.WriteLine($"isCanmove false. Not empty cell: rol: {row} | col: {col}");
+            return false;
+        }
+
+        //METHOD: Check if the box is matching the door. Needs to check all the direction surrounding the box
+        private bool isMatchingDoor(int row, int col, string boxColor)
+        {
+            //Checking up. If the row is 0, outo of limits
+            if (row - 1 >= 0)
+            {
+                if (gameGrid[row - 1, col].Tag == "door_" + boxColor)
+                {
+                    return true;
+                }
+            }
+
+            //Checking down
+            if (row + 1 < _numRows)
+            {
+                if (gameGrid[row + 1, col].Tag == "door_" + boxColor)
+                {
+                    return true;
+                }
+            }
+
+            //Checking left
+            if (col - 1 >= 0)
+            {
+                if (gameGrid[row, col - 1].Tag == "door_" + boxColor)
+                {
+                    return true;
+                }
+            }
+
+            //Checking right
+            if (col + 1 < _numCols)
+            {
+                if (gameGrid[row, col + 1].Tag == "door_" + boxColor)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
 
         //METHOD: Check if the game is over
         private void CheckEndGame()
@@ -93,102 +308,7 @@ namespace _01Assignment2
             //txtNumMoves.Text = $"Moves: {0}";
         }
 
-        //METHOD: Get the cell in the array
-        private PictureBox GetCel(int row, int col)
-        {
-            //Return the PictureBox in the specified position
-            return gameGrid[row, col];
-        }
 
-        //METHOD: Check if the box can move to the selected direction
-        /// <summary>
-        /// Check if the box can move to the selected direction
-        /// </summary>
-        /// <param name="box"></param>
-        /// <param name="direction"></param>
-        /// <returns></returns>
-        private bool CanMove(PictureBox box, string direction)
-        {
-            // Checking if the PictureBox is a red or blue box
-            if (box.BackgroundImage != Properties.Resources.box_red && box.BackgroundImage != Properties.Resources.box_blue)
-            {
-                return false;
-            }
-
-            // Getting the INITIAL or CURRENT row and column of the selected PictureBox
-            int currentRow = -1, currentCol = -1;
-            for (int i = 0; i < _numRows; i++)
-            {
-                for (int j = 0; j < _numCols; j++)
-                {
-                    if (gameGrid[i, j] == box)
-                    {
-                        currentRow = i;
-                        currentCol = j;
-                        break;
-                    }
-                }
-                if (currentRow != -1)
-                {
-                    break;
-                }
-            }
-
-            // Getting the TARGET or FINAL row and column of the selected PictureBox
-            int targetRow = currentRow, targetCol = currentCol;
-            switch (direction)
-            {
-                case "up":
-                    targetRow--;
-                    break;
-                case "down":
-                    targetRow++;
-                    break;
-                case "left":
-                    targetCol--;
-                    break;
-                case "right":
-                    targetCol++;
-                    break;
-                default:
-                    return false;
-            }
-
-            // Validating if the TARGET cell is inside the grid
-            if (targetRow < 0 || targetRow >= _numRows || targetCol < 0 || targetCol >= _numCols)
-            {
-                return false;
-            }
-
-            // Validating if the TARGET cell is free of walls
-            if (gameGrid[targetRow, targetCol].BackgroundImage == Properties.Resources.wall)
-            {
-                return false;
-            }
-
-            // Validating if the target cell is free of other boxes
-            if (gameGrid[targetRow, targetCol].BackgroundImage == Properties.Resources.box_blue || gameGrid[targetRow, targetCol].BackgroundImage == Properties.Resources.box_red)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        // METHOD: Check if the box moves to a correspoinding door
-        // and returns true if the box is matching the door
-        private bool IsMatchingDoor(PictureBox box, PictureBox destination)
-        {
-            if (box.BackgroundImage == Properties.Resources.box_red && destination.BackgroundImage == Properties.Resources.door_red)
-            {
-                return true;
-            }
-            else if (box.BackgroundImage == Properties.Resources.box_blue && destination.BackgroundImage == Properties.Resources.door_blue)
-            {
-                return true;
-            }
-
-            return false;
-        }
 
     }
 }
