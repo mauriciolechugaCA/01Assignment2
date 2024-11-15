@@ -274,6 +274,32 @@ namespace _01Assignment2
 
         }
 
+        //METHOD: Update the selected box position
+        public void UpdateSelectedBox(int newRow, int newCol)
+        {
+
+            PictureBox newCell = gameGrid[newRow, newCol];
+
+            //Removing the border from the old cell
+            selectedBox.BorderStyle = BorderStyle.FixedSingle;
+
+            //Adding the border to the new cell
+            newCell.BorderStyle = BorderStyle.Fixed3D;
+
+            //Saving the new selected box
+            selectedBox = newCell;
+
+
+            selectedBox = newCell;
+        }
+
+        //METHOD: Clear the selected box
+        public void ClearSelectedBox()
+        {
+            selectedBox.BorderStyle = BorderStyle.FixedSingle;
+            selectedBox = null;
+        }
+
         public void DisableButtons()
         {
             btnUp.Enabled = false;

@@ -157,6 +157,9 @@ namespace _01Assignment2
                 //Increase the moves count
                 movesCount++;
 
+                //Update the selected box
+                form.UpdateSelectedBox(validRow, validCol);
+
                 //Checking if the box is matching the door
                 if (isMatchingDoor(validRow, validCol, boxColor))
                 {
@@ -166,6 +169,8 @@ namespace _01Assignment2
 
                     //Decrease the remaining boxes
                     remainingBoxes--;
+
+                    form.ClearSelectedBox();
 
                 }
 
@@ -267,7 +272,7 @@ namespace _01Assignment2
         {
             if (remainingBoxes == 0)
             {
-                MessageBox.Show("Game Over!\nCongrats!");
+                MessageBox.Show("You finished the level!!\nCongrats!");
                 ResetGame();
                 form.DisableButtons();
             }
