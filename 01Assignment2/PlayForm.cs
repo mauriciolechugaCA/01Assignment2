@@ -1,4 +1,17 @@
-﻿using System;
+﻿/*
+ * Assignment 3 - PROG2370
+ * 
+ * Davi Henrique
+ * Fernando Carvalho de Souza
+ * Mauricio Lechuga
+ * 
+ * Due November 15th, 2024
+ */
+
+
+
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
