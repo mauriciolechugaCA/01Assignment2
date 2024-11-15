@@ -17,15 +17,16 @@ namespace _01Assignment2
         private PictureBox[,] gameGrid;
         private int movesCount;
         private int remainingBoxes;
+        private PlayForm form;
 
         //Default Constructor
-        public GameController(int rows, int cols, PictureBox[,] grid, int numOfBoxes)
+        public GameController(int rows, int cols, PictureBox[,] grid, int numOfBoxes, PlayForm form)
         {
             _numRows = rows;
             _numCols = cols;
             movesCount = 0;
             remainingBoxes = numOfBoxes;
-
+            this.form = form;
             //Creating the grid
             //gameGrid = new PictureBox[_numRows, _numCols];
             gameGrid = grid;
@@ -38,20 +39,16 @@ namespace _01Assignment2
         //}
 
         //METHOD: Update the score. Moves Count and Remaining Boxes
-        //public void UpdateScoreDisplay()
-        //{
-        //    // TODO: Create labels in the form to display the score
-        //    txtRemainingBoxes.Text = $"Boxes: {remainingBoxes}";
-        //    txtNumMoves.Text = $"Moves: {movesCount}";
-        //}
+        public void UpdateScoreDisplay()
+        {
+            //form.txtRemainingBoxes.Text = remainingBoxes.ToString();
+            //form.txtNumMoves.Text = movesCount.ToString();
+            form.UpdateRemainingBoxes(remainingBoxes);
+            form.UpdateMoveCount(movesCount);
+
+        }
 
         //METHOID: Move the box to the selected direction
-        //TODO: I need to check the next cell each time calling CanMove()
-        //TODO: Get the current position of the box, color and direction
-        //TODO: Loop to check each cell in the direction. Stop when the next cell is a wall or a box or other thing
-        //TODO: Check if the box is matching the door
-        //TODO: If current cell is different from updatedcell, increase the moves count
-        //TODO: If box is matching the door, decrease the remaining boxes AND remove the box
         public void MoveBox(PictureBox selectedBox, string direction)
         {
 
@@ -61,9 +58,6 @@ namespace _01Assignment2
 
             Debug.WriteLine($"_numRows: {_numRows} | _numCols: {_numCols} | remainingBoxes: {remainingBoxes} ");
 
-            //TODO: Create a method to get the current position of the box.
-            //TODO: Because now I need to loop everything to find the box position. I can use return with the method to get out of the loop
-            //TODO: Return the row and col
             //Get the current row and column of the selected box
             for (int i = 0; i < _numRows; i++)
             {
@@ -175,6 +169,7 @@ namespace _01Assignment2
 
                 }
 
+                UpdateScoreDisplay();
             }
 
             CheckEndGame();

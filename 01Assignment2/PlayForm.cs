@@ -27,6 +27,7 @@ namespace _01Assignment2
         private PictureBox selectedBox;
         //GameController object
         private GameController gameController;
+        //private PlayForm form;
 
         public PlayForm()
         {
@@ -125,8 +126,10 @@ namespace _01Assignment2
                 }
 
                 //Creating the GameController object
-                gameController = new GameController(_numRows, _numCols, gameGrid, remainingBoxes);
+                gameController = new GameController(_numRows, _numCols, gameGrid, remainingBoxes, this);
                 Debug.WriteLine($"GameController created:_numRows: {_numRows} | _numCols: {_numCols} | remainingBoxes: {remainingBoxes} ");
+
+                gameController.UpdateScoreDisplay();
 
             }
             catch (Exception ex)
@@ -134,6 +137,17 @@ namespace _01Assignment2
                 MessageBox.Show($"Error loading level: {ex.Message}");
             }
         }
+
+        //METHOD: Access methods to update the score. Because the GameController doesn't have access to the form
+        public void UpdateMoveCount(int count)
+        {
+            txtNumMoves.Text = count.ToString();
+        }
+        public void UpdateRemainingBoxes(int count)
+        {
+            txtRemainingBoxes.Text = count.ToString();
+        }
+
 
         //METHOD: Add the event handler to each PictureBox
         private void AddClickEvent()
