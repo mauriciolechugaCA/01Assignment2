@@ -99,12 +99,14 @@ namespace _01Assignment2
                             case "BR":
                                 pbCell.BackgroundImage = Properties.Resources.box_red;
                                 pbCell.Tag = "box_red";
+                                remainingBoxes++;
                                 //Adding the event handler to each Box
                                 //pbCell.Click += (sender, e) => SelectBox_Click(i, j);
                                 break;
                             case "BB":
                                 pbCell.BackgroundImage = Properties.Resources.box_blue;
                                 pbCell.Tag = "box_blue";
+                                remainingBoxes++;
                                 break;
                             default:
                                 pbCell.BackgroundImage = null;
@@ -123,7 +125,8 @@ namespace _01Assignment2
                 }
 
                 //Creating the GameController object
-                gameController = new GameController(_numRows, _numCols, gameGrid);
+                gameController = new GameController(_numRows, _numCols, gameGrid, remainingBoxes);
+                Debug.WriteLine($"GameController created:_numRows: {_numRows} | _numCols: {_numCols} | remainingBoxes: {remainingBoxes} ");
 
             }
             catch (Exception ex)

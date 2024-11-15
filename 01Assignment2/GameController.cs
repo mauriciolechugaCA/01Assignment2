@@ -19,12 +19,12 @@ namespace _01Assignment2
         private int remainingBoxes;
 
         //Default Constructor
-        public GameController(int rows, int cols, PictureBox[,] grid)
+        public GameController(int rows, int cols, PictureBox[,] grid, int numOfBoxes)
         {
             _numRows = rows;
             _numCols = cols;
             movesCount = 0;
-            remainingBoxes = 0;
+            remainingBoxes = numOfBoxes;
 
             //Creating the grid
             //gameGrid = new PictureBox[_numRows, _numCols];
@@ -59,7 +59,7 @@ namespace _01Assignment2
             int currentCol = -1;
             string boxColor = "";
 
-            Debug.WriteLine($"_numRows: {_numRows} | _numCols: {_numCols}");
+            Debug.WriteLine($"_numRows: {_numRows} | _numCols: {_numCols} | remainingBoxes: {remainingBoxes} ");
 
             //TODO: Create a method to get the current position of the box.
             //TODO: Because now I need to loop everything to find the box position. I can use return with the method to get out of the loop
@@ -177,9 +177,7 @@ namespace _01Assignment2
 
             }
 
-
-
-            //CheckEndGame();
+            CheckEndGame();
 
         }
 
