@@ -60,6 +60,18 @@ namespace _01Assignment2
         /// <param name="filePath"></param>
         private void LoadLevel(string filePath)
         {
+            movesCount = 0;
+            remainingBoxes = 0;
+
+            if (gameGrid != null)
+            {
+                foreach (var pbCell in gameGrid)
+                {
+                    pbCell.BackgroundImage = null;
+                    pbCell.Dispose();
+                }
+            }
+
             try
             {
                 string[] lines = System.IO.File.ReadAllLines(filePath);
@@ -129,7 +141,10 @@ namespace _01Assignment2
                 gameController = new GameController(_numRows, _numCols, gameGrid, remainingBoxes, this);
                 Debug.WriteLine($"GameController created:_numRows: {_numRows} | _numCols: {_numCols} | remainingBoxes: {remainingBoxes} ");
 
+
+
                 gameController.UpdateScoreDisplay();
+
 
             }
             catch (Exception ex)

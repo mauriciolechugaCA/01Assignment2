@@ -273,7 +273,7 @@ namespace _01Assignment2
         }
 
         //METHOD: Reset the game
-        private void ResetGame()
+        public void ResetGame()
         {
             // Reset the counts
             movesCount = 0;
